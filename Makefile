@@ -9,4 +9,4 @@ copyres: clean
 
 clean: 
 	rm -f build/run.exe
-	rm -r build/res
+	rm -f -r build/res
