@@ -47,7 +47,7 @@ LANGUAGE = CPP
 SFML = SFML-2.5.1
 
 # Curl current library
-CURL = curl
+CURL = curl-7.87.0-win64-mingw
 
 #===================================================================================
 # Target rules for compilation
@@ -64,11 +64,11 @@ move_target_to_build_dir: output_target
 .PHONY: move_target_to_build_dir
 
 output_target: compile_target build_icon
-	$(CC) -o $(TARGET) $(TARGET).o fetch.o icon.res -L .\$(LIB)\$(CURL) -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
+	$(CC) -o $(TARGET) $(TARGET).o fetch.o data.o icon.res -L .\$(LIB)\$(CURL)\lib -lcurl -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
 .PHONY: output_target
 
 compile_target: copy_res build_obj
-	$(CC) -c $(SOURCE)\$(TARGET).$(LANGUAGE) $(SOURCE)\fetch.$(LANGUAGE) -I .\$(LIB)\$(CURL) -I .\$(LIB)\$(SFML)\include -DSFML_STATIC
+	$(CC) -c $(SOURCE)\$(TARGET).$(LANGUAGE) $(SOURCE)\fetch.$(LANGUAGE) $(SOURCE)\data.$(LANGUAGE) -I .\$(LIB)\$(CURL)\include -I .\$(LIB)\$(SFML)\include -DSFML_STATIC
 .PHONY: compile_target
 
 copy_res: build_res

@@ -2,7 +2,7 @@
 #ifndef FETCH_H
 #define FETCH_H
 
-#include <curl.h>
+#include <curl/curl.h>
 #include <string>
 
 class CurlObj {
