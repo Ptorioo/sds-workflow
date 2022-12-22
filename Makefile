@@ -38,7 +38,7 @@ RESOURCE = res
 OBJ = obj
 
 # Build target
-TARGET = main
+TARGET = sdsWorkflow
 
 # Programming language of the desired compiling target
 LANGUAGE = CPP
@@ -60,11 +60,11 @@ build: move_target_to_build_dir
 .PHONY: build
 
 move_target_to_build_dir: output_target
-	mv *.o $(BUILD_DIR)/$(OBJ) && mv *.exe $(BUILD_DIR)/
+	mv *.o $(BUILD_DIR)/$(OBJ) && mv *.exe $(BUILD_DIR)/ && mv *.res $(BUILD_DIR/)/
 .PHONY: move_target_to_build_dir
 
-output_target: compile_target
-	$(CC) $(TARGET).o fetch.o -o $(TARGET) -L .\$(LIB)\$(CURL) -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
+output_target: compile_target build_icon
+	$(CC) -o $(TARGET) $(TARGET).o fetch.o icon.res -L .\$(LIB)\$(CURL) -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
 .PHONY: output_target
 
 compile_target: copy_res build_obj
@@ -86,6 +86,9 @@ build_res: build_build_dir
 build_build_dir: clean
 	mkdir -p $(BUILD_DIR)
 
+build_icon: clean
+	windres .\$(RESOURCE)\icon.rc -O coff -o icon.res
+
 clean: clean_build_dir clean_file
 .PHONY: clean
 
@@ -93,4 +96,4 @@ clean_build_dir:
 	rm -f -r $(BUILD_DIR)
 
 clean_file:
-	rm -f *.o *.exe
+	rm -f *.o *.exe *.res
