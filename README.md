@@ -21,4 +21,4 @@ Multi-purpose stand-alone application on desktop that improves the workflow of S
 - GNU Make 4.4
 
 ### Working directory :
-- /build (automatically generated during compilation)
+- root (the output will be in /build , which will be automatically generated during compilation)
