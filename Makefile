@@ -64,11 +64,11 @@ move_target_to_build_dir: output_target
 .PHONY: move_target_to_build_dir
 
 output_target: compile_target
-	$(CC) $(TARGET).o -o $(TARGET) -L .\$(LIB)\$(CURL) -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
+	$(CC) $(TARGET).o fetch.o -o $(TARGET) -L .\$(LIB)\$(CURL) -L .\$(LIB)\$(SFML)\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 
 .PHONY: output_target
 
 compile_target: copy_res build_obj
-	$(CC) -c $(SOURCE)\$(TARGET).$(LANGUAGE) -I .\$(LIB)\$(CURL) -I .\$(LIB)\$(SFML)\include -DSFML_STATIC
+	$(CC) -c $(SOURCE)\$(TARGET).$(LANGUAGE) $(SOURCE)\fetch.$(LANGUAGE) -I .\$(LIB)\$(CURL) -I .\$(LIB)\$(SFML)\include -DSFML_STATIC
 .PHONY: compile_target
 
 copy_res: build_res
